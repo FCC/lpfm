@@ -17,8 +17,8 @@ The end goal is that output maintains the (1) total number of excluded channels 
 
 Files
 ------
-- lpfm.py - primary code to develop the output polygons
-- *.shp - associated temporary example shape files
+- lpfm.py - primary code to develop the output polygons 
+- *.shp - associated temporary example shape files (found here - https://dl.dropbox.com/u/40278130/lpfm_shapes.zip)
 	- lpfm_nc.shp - all protected areas for north carolina
 	- lpfm_test1.shp - simple example of 2 concentric rings of a protected station
 	- lpfm_test.shp - simple example of 4 concentric rings of a protected station
