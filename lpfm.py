@@ -96,7 +96,7 @@ def lpfm_insert_to_working_old (myGID):
 #function for inserting intersected polys from finalTB to working
 def lpfm_insert_to_working (myGID):
      #insert the new polygon into working
-     theSQL = "INSERT INTO " + schema + ".working select st_buffer(geom,0.0) from " #st_buffer here solves for geometry errors
+     theSQL = "INSERT INTO " + schema + ".working select ST_SnapToGrid(st_buffer(geom,0.0),0.0000001) from " #st_buffer here solves for geometry errors
      theSQL = theSQL +  schema + "." + finalTB + "_data "
      theSQL = theSQL + "where gid = " + myGID + ";"
      theUpdCur = conn.cursor()
@@ -104,9 +104,9 @@ def lpfm_insert_to_working (myGID):
      conn.commit()
      #update the attributes on this one only
      lpfm_calc_exclusions ("working", record[3], record[4])
-     #insert the final polygons into working first;
+     #insert the final polygons into working first; do this w/ a dissolve (st_union) to eliminate unnecessary polygons
      theSQL = "INSERT INTO " + schema + ".working SELECT ST_UNION("
-     theSQL = theSQL + finalTB + ".geom) as geom, total, "
+     theSQL = theSQL + "ST_SnapToGrid(" + finalTB + ".geom,0.0000001)) as geom, total, "
      theSQL = theSQL + "c200, c201, c202, C203, C204, C205, C206, C207, C208, C209, "
      theSQL = theSQL + "c210, c211, c212, C213, C214, C215, C216, C217, C218, C219, "
      theSQL = theSQL + "c220, c221, c222, C223, C224, C225, C226, C227, C228, C229, "
