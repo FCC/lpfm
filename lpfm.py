@@ -117,7 +117,7 @@ def lpfm_insert_to_working (myGID):
      theSQL = theSQL + "c270, c271, c272, C273, C274, C275, C276, C277, C278, C279, "
      theSQL = theSQL + "c280, c281, c282, C283, C284, C285, C286, C287, C288, C289, "
      theSQL = theSQL + "c290, c291, c292, C293, C294, C295, C296, C297, C298, C299, "
-     theSQL = theSQL + "c300, total "
+     theSQL = theSQL + "c300 "
      theSQL = theSQL + "from " + schema + "." + finalTB + ", " + schema + "." + finalTB
      theSQL = theSQL + "_data where st_intersects(" + finalTB + ".geom, " + finalTB
      theSQL = theSQL + "_data.geom) and " + finalTB + "_data.gid = " + myGID 
