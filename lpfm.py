@@ -22,7 +22,7 @@ print "local time:", time.asctime(now)
 myHost = "localhost"
 myPort = "54321"
 myUser = "postgres"
-db = "feomike"
+db = "fccgis"
 schema = "lpfm"
 finalTB = "lpfm"
 srcshp = "lpfm_all_buffers" #mikenclpfm, lpfm_test(1)
@@ -30,13 +30,13 @@ srcshp = "lpfm_all_buffers" #mikenclpfm, lpfm_test(1)
 #function for updating the field values
 def lpfm_calc_exclusions (myTbl, myField):
      theSQL = "Update " + schema + "." + myTbl + " set c" + str(myField)
-	theSQL = theSQL + " = 1;"
-	theUpdCur = conn.cursor()
-	theUpdCur.execute(theSQL)
-	conn.commit()
-	theUpdCur.close()
-	del theUpdCur, theSQL, myField, myTbl
-	return()
+     theSQL = theSQL + " = 1;"
+     theUpdCur = conn.cursor()
+     theUpdCur.execute(theSQL)
+     conn.commit()
+     theUpdCur.close()
+     del theUpdCur, theSQL, myField, myTbl
+     return()
 
 def lpfm_clean_poly(myTbl):
 	clnCur = conn.cursor()
@@ -72,8 +72,9 @@ def lpfm_insert_to_working (myChan):
 	conn.commit()
 	lpfm_clean_poly("working")
 	#case #2 - polygons which are in c<field> and not in finalTB #case2
-	theSQL = "INSERT INTO " + schema + ".working select ST_SnapToGrid(ST_Difference(c"  
-	theSQL = theSQL + myChan + ".geom, st_buffer(" + finalTB + ".geom,0)),0.0000001) as geom "
+	theSQL = "INSERT INTO " + schema + ".working select st_difference(st_translate(c" 
+	theSQL = theSQL + myChan + ".geom, (random()-0.5)/1000, (random()-0.5)/1000), "
+	theSQL = theSQL + schema + ".geom) as geom "
 	theSQL = theSQL + "from " + schema + ".c" + myChan + ", " + schema + "." + finalTB
 	theSQL = theSQL + " where st_intersects(c" + myChan + ".geom, " + finalTB + ".geom);"
 	wkCur.execute(theSQL)
@@ -83,8 +84,9 @@ def lpfm_insert_to_working (myChan):
 	lpfm_calc_exclusions("working",myChan)
 	#case #3 - polygons in finalTB which are not in c<field> case #3
 	#preserve the attributes and no need to calc_exclusions b/c these don't intersect
-	theSQL = "INSERT INTO " + schema + ".working select ST_SnapToGrid(ST_Difference("  
-	theSQL = theSQL + finalTB + ".geom, c" + myChan + ".geom),0.0000001) as geom, total, " 
+	theSQL = "INSERT INTO " + schema + ".working select st_difference(st_translate("
+	theSQL = theSQL + schema + ".geom, (random()-0.5)/1000, (random()-0.5)/1000), c"
+	theSQL = theSQL + myChan + ".geom) as geom, total,"
 	theSQL = theSQL + "c201, c202, C203, C204, C205, C206, C207, C208, C209, "
 	theSQL = theSQL + "c210, c211, c212, C213, C214, C215, C216, C217, C218, C219, "
 	theSQL = theSQL + "c220, c221, c222, C223, C224, C225, C226, C227, C228, C229, "
@@ -97,7 +99,7 @@ def lpfm_insert_to_working (myChan):
 	theSQL = theSQL + "c290, c291, c292, C293, C294, C295, C296, C297, C298, C299, "
 	theSQL = theSQL + "c300 "
 	theSQL = theSQL + "from " + schema + ".c" + myChan + ", " + schema + "." + finalTB
-	theSQL = theSQL + " where st_intersects(" + finalTB + ".geom, c" + myChan + ".geom);"
+	theSQL = theSQL + " where st_intersects(c" + myChan + ".geom, " + finalTB + ".geom);"
 	wkCur.execute(theSQL)
 	conn.commit()
 	lpfm_clean_poly("working")
@@ -205,7 +207,7 @@ def lpfm_initialize_fields(myTbl):
                myCalcs = [0,1,-1,2,-2]
           if i == "adjacent5354":
           	myCalcs = [0,1,-1,2,-2]
-          for j in range(209, 212):
+          for j in range(209, 301):
                for k in myCalcs: 
                	#print "i is: " + str(i) + " and j is: " + str(j) + " and k is: " + str(k)
                	if (j + k > 200) and (j + k < 301):  #for all normal ones
@@ -243,7 +245,7 @@ def lpfm_initialize_fields(myTbl):
 #dissolve each c<field> into its own dataset
 def lpfm_dissolve_cfields():
 	mkCur = conn.cursor()	
-	for i in range(201,211):
+	for i in range(201,301):
 		theSQL = "DROP TABLE if EXISTS " + schema + ".c" + str(i) + ";"
 		theSQL = theSQL + "create table " + schema + ".c" + str(i) + " as "
 		theSQL = theSQL + "SELECT st_union(geom) as geom, c" + str(i) 
@@ -333,7 +335,7 @@ lpfm_mk_tbl(finalTB)
 
 ##channel 201 is a special case, just insert it into final
 inCur = conn.cursor()
-print "INITIALIZING: working on channel: 201" 
+#print "INITIALIZING: working on channel: 201" 
 theSQL = "INSERT INTO " + schema + "." + finalTB + " select geom from "
 theSQL = theSQL +  schema + ".c201;"
 inCur.execute(theSQL)
@@ -344,7 +346,7 @@ del inCur, theSQL
 lpfm_calc_exclusions (finalTB, 201)
 
 ##loop for each channel
-for record in range(202,211):
+for record in range(202,208):
      	#push the total of all intersecting polygons into a working table        
      	#push the final polygons into working first, then push the single new poly	
 	print "working on channel " + str(record) 
@@ -356,11 +358,12 @@ lpfm_set_total
 
 print "done intersecting, sending output shape"     
 #make an export shape pgsql2shp -f test -h localhost -p 54321 feomike lpfm.c208
-os.system("rm test.*")
-theStr = "pgsql2shp -f test -h " + myHost + " -p " + myPort + " " + db + " " + schema
-theStr = theStr + "." + finalTB
-os.system(theStr)
+#os.system("rm test.*")
+#theStr = "pgsql2shp -f test -h " + myHost + " -p " + myPort + " " + db + " " + schema
+#theStr = theStr + "." + finalTB
+#os.system(theStr)
 conn.close()
+now = time.localtime(time.time())
 print "local time:", time.asctime(now)
 
  
