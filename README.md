@@ -18,27 +18,19 @@ The end goal is that output maintains the (1) total number of excluded channels 
 Files
 ------
 - lpfm.py - primary code to develop the output polygons 
-- *.shp - associated temporary example shape files (found here - https://dl.dropbox.com/u/40278130/lpfm_shapes.zip)
-	- lpfm_nc.shp - all protected areas for north carolina
-	- lpfm_test1.shp - simple example of 2 concentric rings of a protected station
-	- lpfm_test.shp - simple example of 4 concentric rings of a protected station
-	- co.shp - all co-channel stations in north carolina
-	- ad5354.shp - all adjacent 53 and 54 stations in north carolina
-	- firstad.shp- all first adjacent stations in north carolina
-	- sec.shp - all second adjacent stations in north carolina
-	- tv6.shp - all tv 6 protected stations in north carolina
+- *.shp - primary shape file containing exclusion areas of all station 
+		(found here - https://dl.dropbox.com/u/40278130/lpfm_all_buffers.zip)
 
 Dependencies
 ------------
 - PostGIS (using OpenGeo Suite)
 - psycopg (python library for PostgresSQL - http://www.initd.org/psycopg/)
+- ArcGIS (for the union step_
 
-Notes
------
-- edit lines 16 - 22 for database connection setups
-- this script reads in the input shape file and begins operating on it
-- the output is named <schema>.lfpm
-- script has only been tested on Mac OSX python/psycopg/OpenGeo
+Folders
+-------
+- processing - contains the procesisng steps
+- visualization - contains the visualization steps
 
 Problems 
 --------
