@@ -1,0 +1,15 @@
+@land: #4C4C4C;
+@water: #DEEDEF;
+@waterline: #4D8FB4;
+
+#lake[zoom>=0][ScaleRank<=1],
+#lake[zoom>=1][ScaleRank=1],
+#lake[zoom>=2][ScaleRank=1],
+#lake[zoom>=3][ScaleRank=1],
+#lake[zoom>=4][ScaleRank=1],
+#lake[zoom>=5][ScaleRank=1],
+#lake[zoom>=6][ScaleRank=8],
+#lake[zoom>=7][ScaleRank=9] {
+  ::outline { line-color:@waterline; }
+  ::fill { polygon-fill:@water; }
+}

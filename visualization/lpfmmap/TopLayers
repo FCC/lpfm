@@ -1,0 +1,38 @@
+
+#state-line::glow[ADM0_A3='USA'] {
+  [zoom>2] {
+    line-color:#F6FAFB;
+    line-width:0.8;
+  }
+}
+#state-line[ADM0_A3='USA'] {
+  [zoom>0] {
+    line-color:#A9BBBE;
+    line-width:20.5;
+  }
+  [zoom>6] {
+    line-width:20.0;
+  }
+}
+
+#coastline::glow_outer {
+   line-color: #4D8FB4;
+   line-opacity: 0.4;
+   line-width: 1;
+ }
+
+@land: #727272;
+@water: #DEEDEF;
+@waterline: #4D8FB4;
+
+#lake[zoom>=0][ScaleRank<=1],
+#lake[zoom>=1][ScaleRank=1],
+#lake[zoom>=2][ScaleRank=1],
+#lake[zoom>=3][ScaleRank=1],
+#lake[zoom>=4][ScaleRank=1],
+#lake[zoom>=5][ScaleRank=1],
+#lake[zoom>=6][ScaleRank=8],
+#lake[zoom>=7][ScaleRank=9] {
+  ::outline { line-color:@waterline; }
+  ::fill { polygon-fill:@water; }
+}
