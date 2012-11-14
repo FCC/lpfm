@@ -66,13 +66,13 @@ def lpfm_initialize_fields(myTbl):
           if i == "secondadjacent":
                myCalcs = [0,1,2,-1,-2]
           if i == "thirdadjacent":
-               myCalcs = [0,1,-1,2,-2]
+               myCalcs = [0,1,-1,2,-2,3,-3]
           if i == "adjacent5354":
           	myCalcs = [0,1,-1,2,-2]
-          for j in range(209, 301):
+          for j in range(201, 301):
                for k in myCalcs: 
                	#print "i is: " + str(i) + " and j is: " + str(j) + " and k is: " + str(k)
-               	if (j + k > 200) and (j + k < 301):  #for all normal ones
+               	if (j + k > 200) and (j + k < 302):  #for all normal ones
                		#build and excecute update sql
                		theSQL = "UPDATE " + schema + "." + myTbl + " set c" + str(j + k) + " = 1 where buffer_typ = '" + str(i)
                		theSQL = theSQL + "' and channel = " + str(j) + ";"
@@ -112,7 +112,7 @@ def lpfm_dissolve_cfields():
 		theSQL = "DROP TABLE if EXISTS " + schema + ".c" + str(i) + ";"
 		theSQL = theSQL + "create table " + schema + ".c" + str(i) + " as "
 		theSQL = theSQL + "SELECT (st_dump(st_union(geom))).geom as geom, c" + str(i) 
-		theSQL = theSQL + " as channel FROM " + schema + "." + finalTB + "_data "
+		theSQL = theSQL + " FROM " + schema + "." + finalTB + "_data "
 		theSQL = theSQL + "WHERE c" + str(i) + " = 1 group by c" + str(i) + ";"
 		theSQL = theSQL + "ALTER TABLE " + schema + ".c" + str(i) + " ADD COLUMN gid SERIAL NOT NULL;"
 		mkCur.execute(theSQL)
@@ -137,13 +137,14 @@ theSQL = "shp2pgsql -s 4326 -I -W latin1 -g geom " + srcshp + ".shp " +  schema 
 theSQL = theSQL + finalTB + "_data " +  db + " | psql -p 54321 -h localhost " + db
 os.system(theSQL)
 ##add fields to the imported table to support channel exclusions/total
+print "...altering table: " + finalTB + "_data"
 lpfm_alter_fields(finalTB + "_data")
 ##initialize fields - this function takes a couple of hours
-##print "initializing fields..." 
+print "...initializing fields..."
 lpfm_initialize_fields(finalTB + "_data")
 
 ##dissolve each c<field> into its own table
-##print "dissolving ..."
+print "dissolving ..."
 lpfm_dissolve_cfields()
 
 ##create one output shapefile per channel
