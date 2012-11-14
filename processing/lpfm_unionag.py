@@ -22,21 +22,19 @@ theDir = "C:/users/analysis/lpfm/shapes/"
 
 #Create Reciept
 try:
-#first one through is 201; special case
-	theFC = theDir + "c201.shp"
-	arcpy.copy_management(theFC, theFD + "/c201" )
-	for i in range(202,204):
-		#		#cycle through a range, delete the output if already exists, 
-		#		#union the next one
-		theList = theFD + "/c" + str(i-1) + ";" + theFD + "/c" + str(i)
-		theOut = theFD + "/c" + str(i-1)
-		gp.delete_management(theOut)
-		arcpy.union_analysis(theList, theOut)
+        #first one through is 201; special case
+	for i in range(202,301):
+                arcpy.AddMessage("    Processing: " + str(i))
+		str1 = theFD + "/c" + str(i-1)
+		str2 = theDir + "c" + str(i) + ".shp"
+                theList = [str1, str2]
+		theOut = theFD + "/c" + str(i)
+		if arcpy.Exists(theOut):
+                        arcpy.Delete_management(theOut)
+                arcpy.Union_analysis(theList, theOut, "NO_FID")
 
 except:
     arcpy.AddMessage(arcpy.GetMessage(0))
-    arcpy.AddMessage(arcpy.GetMessage(1))
-    arcpy.AddMessage(arcpy.GetMessage(2))
     theMsg = "Something bad happened during the process"
     arcpy.AddMessage(theMsg)
     del theMsg
