@@ -1,7 +1,7 @@
 lpfm
 ====
 
-creating the low power FM map
+creating the map of low power FM opportunities.  Low Power FM opportunities exist in places where FM channel locations are not excluded.  Channel exclusions happen in places where channels are protected by rules mostly to protect interference. 
 
 What Problem this Solves
 ------------------------
