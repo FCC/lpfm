@@ -5,7 +5,7 @@ creating the low power FM map
 
 What Problem this Solves
 ------------------------
-Low Power FM (LPFM) is an opportunity for local users to start their own broadcasting stations on unused frequencies in their area.  Currently the rules around LPFM are arduous and difficult to visualize.
+Low Power FM (LPFM) is an opportunity for local users to start their own broadcasting stations on unused frequencies in their area.  Currently the rules around LPFM are difficult to visualize.
 
 How this Project Solves this Problem
 ------------------------------------
