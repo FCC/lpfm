@@ -11,30 +11,21 @@ How this Project Solves this Problem
 ------------------------------------
 This project takes all of the towers broadcasting all of the FM stations, and with their attributes and associated protection rules, creates the landscape of opportunities for Low Power FM.  That is, it creates the map of which channels are open where given the current landscape of protected stations.
 
-Requirements
-------------
-The end goal is that output maintains the (1) total number of excluded channels at all spaces - the total field -  (2) each excluded channel at all spaces - c<number> field - and (3) and all polygons as simple, single geometries (e.g. no overlapping, no multipart).
-
-Files
-------
-- lpfm.py - primary code to develop the output polygons 
-- *.shp - primary shape file containing exclusion areas of all station 
-		(found here - https://dl.dropbox.com/u/40278130/lpfm_all_buffers.zip)
-
 Dependencies
 ------------
 - PostGIS (using OpenGeo Suite)
 - psycopg (python library for PostgresSQL - http://www.initd.org/psycopg/)
-- ArcGIS (for the union step_
 
 Folders
 -------
+- assets - folder containing the data assets required for this process
 - processing - contains the procesisng steps
 - visualization - contains the visualization steps
 
+Files
+-----
+- lpfm.py - original code; no longer used
+
 Problems 
 --------
-am having problems w/ st_union throwing errors on node intersections; there are of course tons of slivers and the like, which i try to mitigate for.
-using the input shapes (test and test1 work fine, but the co shape throws an error at record 81 in the loop.  look at the <schema>.working for the resulting
-
-the resulting script needs to run on 38,000 polygons nationwide
+in original code base, I had problems w/ st_difference (parallel buffers), and st_union of complex geometries;  i switched to using only st_intersection w/ universe polygon of union of all US area (at 1:10 million)
