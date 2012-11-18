@@ -11,10 +11,15 @@ How this Project Solves this Problem
 ------------------------------------
 This project takes all of the towers broadcasting all of the FM stations, and with their attributes and associated protection rules, creates the landscape of opportunities for Low Power FM.  That is, it creates the map of which channels are open where given the current landscape of protected stations.
 
-Dependencies
-------------
+Dependencies - Software
+-----------------------
 - PostGIS (using OpenGeo Suite)
 - psycopg (python library for PostgresSQL - http://www.initd.org/psycopg/)
+
+Dependencies - data
+-------------------
+- lowpowerfm.csv - text file in the assets folder
+- usa_wgs - unioned polygon table of US land Area (including territories)
 
 Folders
 -------
