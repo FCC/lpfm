@@ -13,8 +13,8 @@ This project takes all of the towers broadcasting all of the FM stations, and wi
 
 Dependencies - Software
 -----------------------
-- PostGIS (using OpenGeo Suite)
-- psycopg (python library for PostgresSQL - http://www.initd.org/psycopg/)
+- [PostGIS](using OpenGeo Suite)
+- [psycopg](python library for PostgresSQL - http://www.initd.org/psycopg/)
 
 Dependencies - data
 -------------------
