@@ -78,7 +78,7 @@ def lpfm_initialize_fields(myTbl):
                		theSQL = theSQL + "' and channel = " + str(j) + ";"
                		theUpdCur.execute(theSQL)
                		conn.commit()
-     for j in range(201, 220):  #update the tv6 ones
+     for j in range(201, 221):  #update the tv6 ones
      	theSQL = "UPDATE " + schema + "." + myTbl + " set c" + str(j) + " = 1 "
      	theSQL = theSQL + "where buffer_typ like '" + str(j) + "%tv6'; "
      	theUpdCur.execute(theSQL)
