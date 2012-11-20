@@ -5,22 +5,27 @@
 ### Created by: Michael Byrne
 ### Federal Communications Commission 
 ### ---------------------------------------------------------------------------
-###the intent of this script is to take output split shapes after union processing in 
+###the intent of this script is to take the output split shapes after union processing in 
 ###arcgis, and input them back into postgis for map development
 
 # Import system modules
 import sys, string, os
 
-shp2pgsql -s 4326 -I -W latin1 -g geom lpfm_lt_750.shp lpfm.lpfm_lt750 feomike | psql -p 54321 -h localhost feomike
-shp2pgsql -s 4326 -I -W latin1 -g geom lpfm_gt_750.shp lpfm.lpfm_gt750 feomike | psql -p 54321 -h localhost feomike
-
-db = "feomike"
 myHost = "localhost"
+myPort = "54321"
+db = "feomike"
+schema = "lpfm"
 theShp1 = "lpfm_lt_750.shp"
+myTab1 = "lpfm_lt_750"
 theShp2 = "lpfm_gt_750.shp"
+myTab2 = "lpfm_gt_750"
 
-theCmd = "shp2pgsql -s 4326 -I -W latin1 -g geom " + theShp1 + " " + db 
-theCmd = theCmd + " | psql -p 54321 -h " + myHost + " " + db
+theCmd = "shp2pgsql -s 4326 -I -W latin1 -g geom " + theShp1 + " " + schema + "." + myTab1 
+theCmd = theCmd + " " + db + " | psql -p " + myPort + " -h " + myHost + " " + db
+print theCmd
 os.system(theCmd)
-theCmd = theCmd = "shp2pgsql -s 4326 -I -W latin1 -g geom " + theShp2 + " " + db 
-theCmd = theCmd + " | psql -p 54321 -h " + myHost + " " + db
+
+theCmd = "shp2pgsql -s 4326 -I -W latin1 -g geom " + theShp2 + " " + schema + "." + myTab2 
+theCmd = theCmd + " " + db + " | psql -p " + myPort + " -h " + myHost + " " + db
+print theCmd
+os.system(theCmd)
