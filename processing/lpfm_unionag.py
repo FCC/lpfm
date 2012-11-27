@@ -32,7 +32,11 @@ try:
 		if arcpy.Exists(theOut):
                         arcpy.Delete_management(theOut)
                 arcpy.Union_analysis(theList, theOut, "NO_FID")
-
+        theList = [theFD + "/c300", theFD + "/usa_wgs"]
+        theOut = theFD + "/lpfm_union"
+        if arcpy.Exists(theOut):
+                arcpy.Delete_management(theOut)
+        arcpy.Union_analysis(theList, theOut, "NO_FID")
 except:
     arcpy.AddMessage(arcpy.GetMessage(0))
     theMsg = "Something bad happened during the process"
