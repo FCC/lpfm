@@ -197,6 +197,6 @@ update lpfm.lpfm_union_w2nd set total =
 	c270 +  c271 +  c272 +  C273 +  C274 +  C275 +  C276 +  C277 +  C278 +  C279 +  
 	c280 +  c281 +  c282 +  C283 +  C284 +  C285 +  C286 +  C287 +  C288 +  C289 +  
 	c290 +  c291 +  c292 +  C293 +  C294 +  C295 +  C296 +  C297 +  C298 +  C299 +  c300;
-update lpfm.lpfm_union set opportunity = 100 - total;
+update lpfm.lpfm_union_w2nd set opportunity = 100 - total;
 
 commit;
