@@ -15,6 +15,7 @@ Dependencies - Software
 -----------------------
 - [PostGIS](http://opengeo.org/)
 - [psycopg](http://www.initd.org/psycopg/) - python library for PostgresSQL
+- ArcGIS ArcView
 
 Dependencies - data
 -------------------
@@ -30,6 +31,11 @@ Folders
 Files
 -----
 - lpfm.py - original code; no longer used
+
+Results
+-------
+- The resulting map is located here [http://www.fcc.gov/maps/low_power_fm_opportunities_wo_2nd](http://www.fcc.gov/maps/low_power_fm_opportunities_wo_2nd).
+- An addition animation of all LPFM stations already existing found [http://fcc.github.com/lpfmpoints/lpfmpoint.html](http://fcc.github.com/lpfmpoints/lpfmpoint.html) was developed with this [https://github.com/fcc/lpfmpoints](https://github.com/fcc/lpfmpoints) code.
 
 Problems 
 --------
