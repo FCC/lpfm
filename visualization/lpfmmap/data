@@ -1,0 +1,40 @@
+/* This is where the data is called and styled. */
+/* Uncomment for use.                           */
+@highOpp: #1e661b;
+@midHighOpp: #1a8a14;
+@midOpp: #0acf00;
+@midLowOpp: #76ff6f;
+@lowOpp: #f9fcf9;
+
+/*lpfm*/
+#lpfm_union{
+  [opportunity>45] {
+  polygon-fill: @highOpp;
+  polygon-opacity: 0.7;    
+  polygon-gamma: 0.1;      
+    }
+  [opportunity<=45][opportunity>15] {
+  polygon-fill: @midHighOpp;     
+  polygon-opacity: 0.7; 
+  polygon-gamma: 0.2;
+  } 
+  [opportunity<=15][opportunity>2] {
+  polygon-fill: @midOpp; 
+  polygon-opacity: 0.7;
+  polygon-gamma: 0.3;
+  }  
+  [opportunity<=2][opportunity>0] {
+  polygon-fill: @midLowOpp; 
+  polygon-opacity: 0.7;
+  }   
+  [opportunity=0] {
+  polygon-fill: @lowOpp;
+  polygon-opacity: 0.7;
+  }     
+}
+/*
+@highOpp: #183e16;
+@midHighOpp: #1a8a14;
+@midOpp: #0acf00;
+@midLowOpp: #76ff6f;
+@lowOpp: #f9fcf9;*/

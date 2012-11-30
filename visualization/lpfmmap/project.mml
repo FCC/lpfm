@@ -1,0 +1,56 @@
+{
+  "bounds": [
+    -180,
+    13,
+    180,
+    72
+  ],
+  "center": [
+    -98,
+    38,
+    4
+  ],
+  "format": "png",
+  "interactivity": {
+    "layer": "",
+    "template_teaser": "",
+    "template_full": "",
+    "template_location": "",
+    "fields": []
+  },
+  "minzoom": 2,
+  "maxzoom": 10,
+  "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+  "Stylesheet": [
+    "style.mss",
+    "data"
+  ],
+  "Layer": [
+    {
+      "geometry": "polygon",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select geom, gid, total, opportunity, usa from lpfm.lpfm_union_wo2nd where usa = 1) as lpfm_union",
+        "extent": "",
+        "key_field": "gid",
+        "geometry_field": "geom",
+        "host": "localhost",
+        "port": "54321",
+        "dbname": "fccgis",
+        "id": "lpfm_union",
+        "project": "lpfm_poly",
+        "srs": null
+      },
+      "id": "lpfm_union",
+      "class": "",
+      "srs-name": "WGS84",
+      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+      "name": "lpfm_union"
+    }
+  ],
+  "name": "LPFM w/o 2nd Adjacent Map Polygons Only",
+  "description": "",
+  "attribution": "<img align=\"left\" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAASCAYAAAC5ICcsAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6N0JGNDU3NjZDNjlBMTFFMEEwNDU5QkY4MjlFMkJGN0UiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6N0JGNDU3NjdDNjlBMTFFMEEwNDU5QkY4MjlFMkJGN0UiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3QkY0NTc2NEM2OUExMUUwQTA0NTlCRjgyOUUyQkY3RSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3QkY0NTc2NUM2OUExMUUwQTA0NTlCRjgyOUUyQkY3RSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjqrMHUAAAWmSURBVHja7Jp5bFRVFMZnWrpCK6BWLWJtaXEBa4mJFJeQgkskAa24JC5xSdRYDWIQQZHgggFRSvUPa9WgxgVJjAv+AUFpTQNq0ZpIC1hTStEqglXoOu0Ard9Jfq++Tqadrv+9k3xM35v77j3nu9859943+Lu7u32eeTbSNsb+ycubc50+Jghdru/ihR3Cn1zPEq4Xpgqmxn3C10KFR6NnjpWVlf4vLFmRcFFIm4PCl8J5QqGwMEw/q4X3hOXCXx6tnvWqWJgJ41mqkd3fJpwjbBXShM+FYqFaiBJmCA8I9wi5wm3CHo9Sz9zCss9GocT1XQpL4VnCjcIW4QLhBpbMMmGBcKfwgfAK353yaPXMEVY3VchtLwjnI5wtLJePhbTZICxjH/a7JyrPHHOLyX08HCfcKnwrfCSsQVTbhXzhFmG3UCBcSvWqHeCYZwoXC5cIGf20ixGSBpkkp4e5b/7NpL/RtARhyiCfyRLihjHmWA5VF46A/8Z1eoQ2iRHmLGzFMuLPoOpcxSmxhM8lQrkwXwjyzHb2YL8OMoC1QqfQIPwh1EHOv0INRM9iD2fL8/sIo1XYizCNgHr8N1KrSJLV7PscYa6nje0fHyY5/PRvifEPk5sq/MZe8nshmsNMN3zYdSXxHkHATcLZQiYctJAsB9gypJGYbcQSy5j59P26MJ1qn4hPPwpHmbw04j1KvxP4vp34LO51+JvBKb2QtsZRKcJz4ujgpO/EYXEfJganKEzn0HY5PP0gnCZcJvwiBOi/zuVTOf7b24JkrnuE1UHDWvZPCdyvZjmM4fQXdAmkBQwly6IJ0ohbJFxJxrwoXE0wGSzBd7PHS0Aoto87V3ie+9lM/tP06dg0MJfrVPpYw2TaBL+GGOtpWw8PJuhrhImQP0l4iYPKEnzejL/G0UPCKgRkE/MEY6TySqaAeN7F93kkZi5JUYBgbhbeEJ4T9rMyvEnce4mjnM+7EO5arifj832IPwvx5zPPxykcKxmvmYSthPsSqrsl8JMIyZ5Zgch2EUsO834v/U+l3Xy3f85SGI24zNHvUL+PLHPENH6EloxosmwrFWsuRBzkoJBJMJ8hhNlUlloyxHxayjMmhp0QkxSy3B3nOp3vFjKR8fSf5EqmQqrOeibeMu9tsv5j3tVN5plEJigBglfAUQoJkU1lWcYpORduq/Glktc4uxlrCn09QyXPwaflCNvG+Ikqk+2K7zBiTeD+tVS9MgSfS2X9VPiKU/1OfGhnD32IqhdFTCkkRA0VM4tnHL8mEuMV9LmOcezeOxSfXkthLBM7z1USq5jUIsrxYiqIUzZzKPlfQNxArYJsreP6ZU6XRuA3lNtXhZOQUUF2BhD9eAKNgqCxTFIzE+pYPSfVlUz8AUifRFXYBWnjqNJ7aFdFvK0Q34yvNbRfxb0jiCSO8RtJyG1UrGL8byLjG6kCNVSV2fhQybvCYrjdQfLFEnuAbUIyCebYRqrnBhJok2vsGcSYDI/G7THiaCBGZ3n38Wnx/AynTfjbTHwt/H2MyllK1TYhv+Vq07Nn99tPOnl5c2pwYJpLaPshJJONvGXu37xasEDuJ3tnQuxwLJbxu1wb4UDIRr6rj1NnfARhR/N8R8hy3DaMTXpgAO0SXfuhOJLBHY8/ZGvRn09jeCYQYZyBchLJ4uD7hOsw19rHvAXDvXmP6qPjIEpMZw3fzFptin1ceJQKsABR2XJwE2QNxYK+3j8nhRJ4op9XGZEIPBWmTdswSA8MsJ17sjvDxBMchE8n+xm3fQicRLJOl6h8fYjKFyaGsG/eQ62ItXQp2fIUpT0dERwiy2zT96DwCXsH712WZz3CiglTbUz1d7ApW8zp7EPXcdw2p7ezodvEycgTlWe9hNVAuQ01K4H2G+AjYBFwbB8VbaNHpWdu83v/H8uz0bAojwLPRsP+E2AAhqiSHx1wtuQAAAAASUVORK5CYII=' />",
+  "legend": "<table class=\"tbl-data\">\n<tr>\n  <th colspan=\"5\" class=\"center\"><strong>Low Power FM # of Channel Opportunities</strong></th>\n<tr>\n  <td class=\"center\">0</td>\n  <td class=\"center\">1 - 2</td>\n  <td class=\"center\">3 - 15</td>\n  <td class=\"center\">16 - 45</td>\n  <td class=\"center\">gt 45</td>\n</tr>\n<tr>\n  <td class=\"center\"><span style='color:#f9fcf9'>▉</td>\n  <td class=\"center\"><span style='color:#76ff6f'>▉</td>\n  <td class=\"center\"><span style='color:#0acf00'>▉</td>\n  <td class=\"center\"><span style='color:#1a8a14'>▉</td>\n  <td class=\"center\"><span style='color:#1e661b'>▉</td>\n</tr>\n</table>\n\n<style type=\"text/css\">\n.ts-map .wax-legend {\n  max-width:400px !important;\n  max-height:300px !important;\n  overflow:visible !important;\n  width:auto\\9 !important;\n}\n .tbl-data th.center, td.center {\n text-align: center;\n }\n .tbl-data td, .tbl-data th {\n border: none;\n }\n</style>\n",
+  "version": "1.0.1"
+}
