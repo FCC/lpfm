@@ -29,11 +29,12 @@ print "local time:", time.asctime(now)
 myHost = "localhost"
 myPort = "54321"
 myUser = "postgres"
-db = "feomike"
+db = "fccgis"
 schema = "lpfm"
 finalTB = "lpfm"
-srcshp = "mike_lpfm__buffer_nov14"
+srcshp = "LPFM_UPDATED_NOV29"
 usTbl = "usa_wgs"
+wo2nd = "Yes" #variable for weather or not to process w/o 2nd adjacent
      
 #function adding all the final fields to the imported shape
 def lpfm_alter_fields(myTbl):
@@ -130,15 +131,21 @@ def lpfm_import_shape():
 	cur = conn.cursor()
 	cur.execute("DROP TABLE if exists " + schema + "." + finalTB + "_data")
 	conn.commit()
-	cur.close
-	del cur
 	theSQL = "shp2pgsql -s 4326 -I -W latin1 -g geom " + srcshp + ".shp " +  schema + "."
 	theSQL = theSQL + finalTB + "_data " +  db + " | psql -p 54321 -h localhost " + db
 	os.system(theSQL)
 	##add fields to the imported table to support channel exclusions/total
 	print "...altering table: " + finalTB + "_data"
 	lpfm_alter_fields(finalTB + "_data")
+	if wo2nd == "Yes":
+		theSQL = "DELETE FROM " + schema + "." + finalTB + "_data where "
+		theSQL = theSQL + " buffer_typ = 'secondadjacent' and country = 'US';"
+		cur.execute(theSQL)
+		conn.commit()
+	cur.close
+	del cur, theSQL
 	return()
+	
      
 #set up the connection to the database
 myConn = "dbname=" + db + " host=" + myHost + " port=" + myPort + " user=" + myUser
