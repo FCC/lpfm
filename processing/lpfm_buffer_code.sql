@@ -1,9 +1,3 @@
------------------------------------------------------------------------------
------------FCC LOW POWER FM BUFFER CODE--------------------------------------
------------NOVEMBER 14, 2014-------------------------------------------------
------------------------------------------------------------------------------
-
-
 
 ------------------------------------------------------------
 ------------------------------------------------------------
@@ -43,7 +37,7 @@ CREATE TABLE swat.low_power_fm_points
 
 
 
-copy swat.low_power_fm_points from '/location/lowpowerfm.csv' delimiter ',' csv header; 
+copy swat.low_power_fm_points from '/location' delimiter ',' csv header; 
 
 
 --------------------------------------------------------------------------------
@@ -1415,7 +1409,7 @@ group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, l
 
 -------------------------------------------------------
 -------------------------------------------------------
----ALL LOCATIONS; TRANSLATOR; CO-CHANNEL BUFFER TYPE---
+---TRANSLATOR; CO-CHANNEL BUFFER TYPE---
 -------------------------------------------------------
 -------------------------------------------------------
 
@@ -1443,9 +1437,9 @@ select
   app_id,
   id_facilit,
   file,
-  st_union(st_transform(st_buffer(st_transform(geom, 2163), 39000),4326)) as geom
+  st_union(st_transform(st_buffer(st_transform(geom, 2163), 26000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator < 7.3 and translator > 0
+where service_ty in ('FX') and country in ('US') and translator < 7.3 and translator > 0
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -1477,7 +1471,7 @@ select
   file,
   st_union(st_transform(st_buffer(st_transform(geom, 2163), 32000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator >= 7.3 and translator < 13.3
+where service_ty in ('FX') and country in ('US') and translator >= 7.3 and translator < 13.3
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -1506,15 +1500,15 @@ select
   app_id,
   id_facilit,
   file,
-  st_union(st_transform(st_buffer(st_transform(geom, 2163), 26000),4326)) as geom
+  st_union(st_transform(st_buffer(st_transform(geom, 2163), 39000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator >= 13.3
+where service_ty in ('FX') and country in ('US') and translator >= 13.3
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
 
 ----------------------------
---------DISTANCE = 0--------
+--------CANADA--------
 ----------------------------
 
 insert into swat.low_power_fm_points_buffer 
@@ -1536,9 +1530,9 @@ select
   app_id,
   id_facilit,
   file,
-  st_union(st_transform(st_buffer(st_transform(geom, 2163), 4000),4326)) as geom
+  st_union(st_transform(st_buffer(st_transform(geom, 2163), 45000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator = 0
+where service_ty in ('FX') and country in ('CA')
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -1546,7 +1540,7 @@ group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, l
 
 -------------------------------------------------------------------
 -------------------------------------------------------------------
----ALL LOCATIONS; TRANSLATOR; FIRST ADJACENT CHANNEL BUFFER TYPE---
+---TRANSLATOR; FIRST ADJACENT CHANNEL BUFFER TYPE---
 -------------------------------------------------------------------
 -------------------------------------------------------------------
 
@@ -1574,9 +1568,9 @@ select
   app_id,
   id_facilit,
   file,
-  st_union(st_transform(st_buffer(st_transform(geom, 2163), 28000),4326)) as geom
+  st_union(st_transform(st_buffer(st_transform(geom, 2163), 15000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator < 7.3 and translator > 0
+where service_ty in ('FX') and country in ('US') and translator < 7.3 and translator > 0
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -1605,7 +1599,7 @@ select
   file,
   st_union(st_transform(st_buffer(st_transform(geom, 2163), 21000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator >= 7.3 and translator < 13.3
+where service_ty in ('FX') and country in ('US') and translator >= 7.3 and translator < 13.3
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -1632,15 +1626,15 @@ select
   app_id,
   id_facilit,
   file,
-  st_union(st_transform(st_buffer(st_transform(geom, 2163), 15000),4326)) as geom
+  st_union(st_transform(st_buffer(st_transform(geom, 2163), 28000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator >= 13.3
+where service_ty in ('FX') and country in ('US') and translator >= 13.3
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
 
 ----------------------------
---------DISTANCE = 0--------
+--------CANADA--------
 ----------------------------
 
 insert into swat.low_power_fm_points_buffer 
@@ -1662,9 +1656,9 @@ select
   app_id,
   id_facilit,
   file,
-  st_union(st_transform(st_buffer(st_transform(geom, 2163), 4000),4326)) as geom
+  st_union(st_transform(st_buffer(st_transform(geom, 2163), 30000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator = 0
+where service_ty in ('FX') and country in ('CA')
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -1672,7 +1666,7 @@ group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, l
 
 --------------------------------------------------------------------
 --------------------------------------------------------------------
----ALL LOCATIONS; TRANSLATOR; SECOND ADJACENT CHANNEL BUFFER TYPE---
+---TRANSLATOR; SECOND ADJACENT CHANNEL BUFFER TYPE---
 --------------------------------------------------------------------
 --------------------------------------------------------------------
 
@@ -1700,9 +1694,9 @@ select
   app_id,
   id_facilit,
   file,
-  st_union(st_transform(st_buffer(st_transform(geom, 2163), 21000),4326)) as geom
+  st_union(st_transform(st_buffer(st_transform(geom, 2163), 8000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator < 7.3 and translator > 0
+where service_ty in ('FX') and country in ('US') and translator < 7.3 and translator > 0
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -1731,7 +1725,7 @@ select
   file,
   st_union(st_transform(st_buffer(st_transform(geom, 2163), 14000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator >= 7.3 and translator < 13.3
+where service_ty in ('FX') and country in ('US') and translator >= 7.3 and translator < 13.3
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -1758,14 +1752,14 @@ select
   app_id,
   id_facilit,
   file,
-  st_union(st_transform(st_buffer(st_transform(geom, 2163), 8000),4326)) as geom
+  st_union(st_transform(st_buffer(st_transform(geom, 2163), 21000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator >= 13.3
+where service_ty in ('FX') and country in ('US') and translator >= 13.3
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
 ----------------------------
---------DISTANCE = 0--------
+--------CANADA--------
 ----------------------------
 
 insert into swat.low_power_fm_points_buffer 
@@ -1787,18 +1781,52 @@ select
   app_id,
   id_facilit,
   file,
-  st_union(st_transform(st_buffer(st_transform(geom, 2163), 4000),4326)) as geom
+  st_union(st_transform(st_buffer(st_transform(geom, 2163), 21000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator = 0
+where service_ty in ('FX') and country in ('CA')
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
 
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+---TRANSLATOR; THIRD ADJACENT CHANNEL BUFFER TYPE---
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+
+----------------------------
+--------CANADA--------
+----------------------------
+
+insert into swat.low_power_fm_points_buffer 
+
+select 
+  gid as id, 
+  'ANY' as region,    
+  'thirdadjacent' as buffer_type,   
+  channel,
+  class,
+  call_sign,
+  service_ty,
+  city,
+  stateabbr,
+  country,
+  latitude,
+  longitude,
+  translator,
+  app_id,
+  id_facilit,
+  file,
+  st_union(st_transform(st_buffer(st_transform(geom, 2163), 20000),4326)) as geom
+  from swat.low_power_fm_points
+where service_ty in ('FX') and country in ('CA')
+group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
----ALL LOCATIONS; TRANSLATOR; 53RD AND 54TH ADJACENT CHANNEL BUFFER TYPE---
+---TRANSLATOR; 53RD AND 54TH ADJACENT CHANNEL BUFFER TYPE---
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 
@@ -1827,7 +1855,7 @@ select
   file,
   st_union(st_transform(st_buffer(st_transform(geom, 2163), 5000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator < 7.3 and translator > 0 and channel not in (6, 248, 249, 250, 251, 252)
+where service_ty in ('FX') and country in ('US') and translator < 7.3 and translator > 0 and channel not in (6, 248, 249, 250, 251, 252)
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -1856,7 +1884,7 @@ select
   file,
   st_union(st_transform(st_buffer(st_transform(geom, 2163), 5000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator >= 7.3 and translator < 13.3 and channel not in (6, 248, 249, 250, 251, 252)
+where service_ty in ('FX') and country in ('US') and translator >= 7.3 and translator < 13.3 and channel not in (6, 248, 249, 250, 251, 252)
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -1885,13 +1913,13 @@ select
   file,
   st_union(st_transform(st_buffer(st_transform(geom, 2163), 5000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator >= 13.3 and channel not in (6, 248, 249, 250, 251, 252)
+where service_ty in ('FX') and country in ('US') and translator >= 13.3 and channel not in (6, 248, 249, 250, 251, 252)
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
 
 ----------------------------
---------DISTANCE = 0--------
+--------CANADA--------
 ----------------------------
 
 insert into swat.low_power_fm_points_buffer 
@@ -1915,7 +1943,7 @@ select
   file,
   st_union(st_transform(st_buffer(st_transform(geom, 2163), 4000),4326)) as geom
   from swat.low_power_fm_points
-where service_ty in ('FX') and translator = 0 and channel not in (6, 248, 249, 250, 251, 252)
+where service_ty in ('FX') and country in ('CA') and channel not in (6, 248, 249, 250, 251, 252)
 group by gid, channel, class, call_sign, service_ty, city, stateabbr, country, latitude, longitude, translator, app_id, id_facilit, file; commit; 
 
 
@@ -6423,11 +6451,17 @@ CREATE INDEX geomradius
 
 
 
+---------------------------------------------------
+---------------------------------------------------
+---DELETE 53RD AND 54TH ADJACENT CHANNEL BUFFERS---
+-----DELETE 2ND ADJACENT CHANNEL BUFFERS IN US-----
+---------------------------------------------------
+---------------------------------------------------
 
 
+delete from swat.low_power_fm_points_buffer where buffer_type = 'adjacent5354';
 
 
-
-
+delete from swat.low_power_fm_points_buffer where buffer_type = 'secondadjacent' and country = 'US';  
 
 
