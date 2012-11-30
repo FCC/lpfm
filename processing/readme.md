@@ -9,4 +9,5 @@ Steps in order are:
 - output the buffer table to a shapefile 
 - [create separate channel exclusion tables](https://github.com/feomike/lpfm/blob/master/processing/lpfm_setup.py) read in shapefile and apply rules to separate exclusion areas into 100 separate tables representing exclusion areas for each channel
 - [run union](https://github.com/feomike/lpfm/blob/master/processing/lpfm_unionag.py) of all 100 channel exclusion datasets one at time 
-- [create final table](https://github.com/feomike/lpfm/blob/master/processing/lpfm_import_final.py) of unioned exclusion tables with columns for total exclusions and opportunities for channels
+- [read in exported shape files](https://github.com/feomike/lpfm/blob/master/processing/lpfm_import_final.py) of unioned exclusion tables with columns for total exclusions and opportunities for channels
+- [create final table of results](https://github.com/feomike/lpfm/blob/master/processing/lpfm_import_final.py)
