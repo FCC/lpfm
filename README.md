@@ -39,4 +39,4 @@ Results
 
 Problems 
 --------
-in original code base, I had problems w/ st_difference (parallel buffers), and st_union of complex geometries;  i switched to using only st_intersection w/ universe polygon of union of all US area (at 1:10 million)
+in original code base, I had problems w/ st_difference (parallel buffers), and st_union of complex geometries;  i switched to using ArcGIS union.  alternatively, i developed code to use only st_intersection w/ universe polygon of union of all US area (at 1:10 million)
