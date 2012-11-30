@@ -148,11 +148,11 @@ conn = psycopg2.connect(myConn)
 ##using the name <finalTB>_data to denote the dataset containing the buffered shapes
 ##origin of <finalTB>_data is a shapefile
 print "...importing shape..."
-#lpfm_import_shape()
+lpfm_import_shape()
 
 ##initialize fields - this function takes a couple of hours
 print "...initializing fields..."
-#lpfm_initialize_fields(finalTB + "_data")
+lpfm_initialize_fields(finalTB + "_data")
 
 ##dissolve each c<field> into its own table
 print "dissolving ..."
