@@ -4,9 +4,9 @@
 --there are two output shape files from the arcgis; there are two because a single is larger than the 2 gig limit
 --the two are the result of the union with every channel and a final intersect w/ the US
 
-DROP TABLE if exists lpfm.lpfm_union_w2nd;
+DROP TABLE if exists lpfm.lpfm_union_wo2nd;
 
-CREATE TABLE lpfm.lpfm_union_w2nd
+CREATE TABLE lpfm.lpfm_union_wo2nd
 (
   c201 numeric,
   c202 numeric,
@@ -113,25 +113,25 @@ CREATE TABLE lpfm.lpfm_union_w2nd
   geom geometry,
   total numeric,
   opportunity numeric,
-  CONSTRAINT lpfm_union_w2nd_pkey PRIMARY KEY (gid),
+  CONSTRAINT lpfm_union_wo2nd_pkey PRIMARY KEY (gid),
   CONSTRAINT enforce_dims_geom CHECK (st_ndims(geom) = 2),
   CONSTRAINT enforce_srid_geom CHECK (st_srid(geom) = 4326)
 )
 WITH (
   OIDS=TRUE
 );
-ALTER TABLE lpfm.lpfm_union_w2nd OWNER TO postgres;
+ALTER TABLE lpfm.lpfm_union_wo2nd OWNER TO postgres;
 
 -- Index: lpfm.lpfm_geom_gist_lpfm
 -- DROP INDEX lpfm.lpfm_geom_gist_lpfm;
 CREATE INDEX lpfm_geom_union_w2nd_gist_lpfm
-  ON lpfm.lpfm_union_w2nd
+  ON lpfm.lpfm_union_wo2nd
   USING gist
   (geom);
 
 --combine the two tables
 --insert lpfm.lpfm_lt_750
-INSERT INTO lpfm.lpfm_union_w2nd ( 
+INSERT INTO lpfm.lpfm_union_wo2nd ( 
 c201, c202, C203, C204, C205, C206, C207, C208, C209, 
 c210, c211, c212, C213, C214, C215, C216, C217, C218, C219, 
 c220, c221, c222, C223, C224, C225, C226, C227, C228, C229, 
@@ -158,7 +158,7 @@ select
 from lpfm.lpfm_lt_750;
 
 --insert lpfm.lpfm_gt_750
-INSERT INTO lpfm.lpfm_union_w2nd ( 
+INSERT INTO lpfm.lpfm_union_wo2nd ( 
 c201, c202, C203, C204, C205, C206, C207, C208, C209, 
 c210, c211, c212, C213, C214, C215, C216, C217, C218, C219, 
 c220, c221, c222, C223, C224, C225, C226, C227, C228, C229, 
@@ -186,7 +186,7 @@ from lpfm.lpfm_gt_750;
 
 --example update - select gid, c201, c202, total from lpfm.lpfm_union where gid < 10;
 --update the total column
-update lpfm.lpfm_union_w2nd set total = 
+update lpfm.lpfm_union_wo2nd set total = 
 	c201 +  c202 +  C203 +  C204 +  C205 +  C206 +  C207 +  C208 +  C209 +  
 	c210 +  c211 +  c212 +  C213 +  C214 +  C215 +  C216 +  C217 +  C218 +  C219 +  
 	c220 +  c221 +  c222 +  C223 +  C224 +  C225 +  C226 +  C227 +  C228 +  C229 +  
@@ -197,6 +197,6 @@ update lpfm.lpfm_union_w2nd set total =
 	c270 +  c271 +  c272 +  C273 +  C274 +  C275 +  C276 +  C277 +  C278 +  C279 +  
 	c280 +  c281 +  c282 +  C283 +  C284 +  C285 +  C286 +  C287 +  C288 +  C289 +  
 	c290 +  c291 +  c292 +  C293 +  C294 +  C295 +  C296 +  C297 +  C298 +  C299 +  c300;
-update lpfm.lpfm_union_w2nd set opportunity = 100 - total;
+update lpfm.lpfm_union_wo2nd set opportunity = 100 - total;
 
 commit;
